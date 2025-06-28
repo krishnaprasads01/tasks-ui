@@ -49,16 +49,19 @@ body {
   background-color: var(--gray-50);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 #root {
   min-height: 100vh;
+  width: 100%;
 }
 
 .App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .main-content {
@@ -67,6 +70,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* Button Styles */
@@ -273,6 +277,42 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* Utility Classes */
+.container-fluid {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Error States */
 .error-message {
   background-color: #fef2f2;
@@ -298,6 +338,12 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding: 1rem;
@@ -311,11 +357,68 @@ body {
   .btn {
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn:not(.btn-sm) {
+    min-height: 44px; /* Touch-friendly size */
+  }
+  
+  /* Stack buttons vertically on mobile */
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+  }
+  
+  /* Improve form spacing on mobile */
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-    padding: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  /* Smaller text on very small screens */
+  body {
+    font-size: 14px;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.875rem 1rem;
+  }
+  
+  /* Adjust typography for small screens */
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  /* Improve spacing */
+  .form-group {
+    margin-bottom: 1rem;
   }
 }

@@ -13,3 +13,20 @@
   font-size: 0.875rem;
   font-weight: 500;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loading-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .loading-message {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    padding: 1.5rem 1rem;
+  }
+}
