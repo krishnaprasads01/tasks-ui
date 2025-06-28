@@ -142,7 +142,13 @@ npm run dev
 # Build the Docker image
 docker build -t tasks-ui .
 
-# Run the container (standalone)
+# Run the container (standalone - development)
+docker run --rm -p 3000:8080 \
+  -e API_BASE_URL=http://localhost:8080/api \
+  -e PORT=8080 \
+  tasks-ui
+
+# Run the container (production with cloud API)
 docker run --rm -p 3000:8080 \
   -e API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api \
   -e PORT=8080 \
@@ -163,7 +169,7 @@ The UI will be available at `http://localhost:3000`
 
 #### Environment Variables
 
-- `API_BASE_URL`: Backend API URL (default: `https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api`)
+- `API_BASE_URL`: Backend API URL (default: `http://localhost:8080/api`)
 - `PORT`: Port the nginx server listens on (default: `8080`)
 - `VITE_APP_ENV`: Application environment (development/production)
 
