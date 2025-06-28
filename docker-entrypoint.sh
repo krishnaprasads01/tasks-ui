@@ -1,17 +1,24 @@
 #!/bin/sh
+set -e
 
-# Set default port if not provided
+# Set default values if not provided
 export PORT=${PORT:-8080}
+export API_BASE_URL=${API_BASE_URL:-http://localhost:8080/api}
 
-# Generate nginx config with correct port
-envsubst '${PORT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
-mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
+echo "Starting container with PORT=${PORT}"
+echo "API_BASE_URL=${API_BASE_URL}"
+
+# Generate nginx config with environment variables from template
+envsubst '${PORT} ${API_BASE_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+
+# Test nginx configuration
+nginx -t
 
 # Replace environment variables in built files if they exist
 if [ -f /usr/share/nginx/html/index.html ]; then
     # Replace API URL placeholder with actual environment variable
-    if [ ! -z "$VITE_API_BASE_URL" ]; then
-        find /usr/share/nginx/html -type f -name "*.js" -exec sed -i "s|http://localhost:8080/api|$VITE_API_BASE_URL|g" {} \;
+    if [ ! -z "$API_BASE_URL" ]; then
+        find /usr/share/nginx/html -type f -name "*.js" -exec sed -i "s|http://localhost:8080/api|$API_BASE_URL|g" {} \;
     fi
     
     if [ ! -z "$VITE_APP_ENV" ]; then
@@ -19,5 +26,7 @@ if [ -f /usr/share/nginx/html/index.html ]; then
     fi
 fi
 
-# Execute the main command
-exec "$@"
+echo "Configuration complete, starting nginx..."
+
+# Start nginx in foreground mode
+exec nginx -g 'daemon off;'

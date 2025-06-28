@@ -136,14 +136,36 @@ npm run dev
 
 ### Running with Docker
 
-```bash
-# Build and run the UI container
-docker build -t tasks-ui .
-docker run -p 3000:8080 -e VITE_API_BASE_URL=http://localhost:8080/api tasks-ui
+#### Option 1: Using Docker directly
 
-# Or use docker-compose to run both UI and API
-docker-compose up --build
+```bash
+# Build the Docker image
+docker build -t tasks-ui .
+
+# Run the container (standalone)
+docker run --rm -p 3000:8080 \
+  -e API_BASE_URL=http://localhost:8080/api \
+  -e PORT=8080 \
+  tasks-ui
 ```
+
+#### Option 2: Using Docker Compose (Recommended)
+
+```bash
+# Start both UI and API services
+docker-compose up --build
+
+# Stop services
+docker-compose down
+```
+
+The UI will be available at `http://localhost:3000`
+
+#### Environment Variables
+
+- `API_BASE_URL`: Backend API URL (default: `http://localhost:8080/api`)
+- `PORT`: Port the nginx server listens on (default: `8080`)
+- `VITE_APP_ENV`: Application environment (development/production)
 
 ## Contributing
 

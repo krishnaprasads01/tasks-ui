@@ -8,9 +8,9 @@ services:
     ports:
       - "3000:8080"
     environment:
-      - VITE_API_BASE_URL=http://localhost:8080/api
+      - API_BASE_URL=http://tasks-api:8080/api
+      - PORT=8080
       - VITE_APP_ENV=development
-      - VITE_DEBUG=true
     depends_on:
       - tasks-api
     networks:
