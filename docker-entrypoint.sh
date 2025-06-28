@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# Set default port if not provided
+export PORT=${PORT:-8080}
+
+# Generate nginx config with correct port
+envsubst '${PORT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
+mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
+
 # Replace environment variables in built files if they exist
 if [ -f /usr/share/nginx/html/index.html ]; then
     # Replace API URL placeholder with actual environment variable

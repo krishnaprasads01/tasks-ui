@@ -29,12 +29,12 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-# Expose port 8080 (Cloud Run default)
+# Expose port (Cloud Run will set PORT env var)
 EXPOSE 8080
 
-# Health check
+# Health check for local development
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT:-8080}/health || exit 1
 
 # Start nginx with environment variable substitution
 ENTRYPOINT ["/docker-entrypoint.sh"]
