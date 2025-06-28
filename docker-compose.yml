@@ -8,22 +8,9 @@ services:
     ports:
       - "3000:8080"
     environment:
-      - API_BASE_URL=http://tasks-api:8080/api
+      - API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api
       - PORT=8080
       - VITE_APP_ENV=development
-    depends_on:
-      - tasks-api
-    networks:
-      - tasks-network
-
-  tasks-api:
-    build: 
-      context: ../springboot-gcp-api
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
     networks:
       - tasks-network
 
