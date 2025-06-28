@@ -16,14 +16,13 @@ nginx -t
 
 # Replace environment variables in built files if they exist
 if [ -f /usr/share/nginx/html/index.html ]; then
-    # Replace API URL placeholder with actual environment variable
-    if [ ! -z "$API_BASE_URL" ]; then
-        find /usr/share/nginx/html -type f -name "*.js" -exec sed -i "s|http://localhost:8080/api|$API_BASE_URL|g" {} \;
-    fi
-    
+    # Only replace VITE_APP_ENV if provided
     if [ ! -z "$VITE_APP_ENV" ]; then
         find /usr/share/nginx/html -type f -name "*.js" -exec sed -i "s|VITE_APP_ENV=development|VITE_APP_ENV=$VITE_APP_ENV|g" {} \;
     fi
+    
+    # Note: API_BASE_URL is set at build time via .env.production, not at runtime
+    echo "Using build-time API configuration from .env.production"
 fi
 
 echo "Configuration complete, starting nginx..."
