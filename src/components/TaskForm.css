@@ -1,0 +1,81 @@
+.task-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.task-form-header {
+  margin-bottom: 2rem;
+}
+
+.task-form-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.task-form {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.form-actions .btn {
+  min-width: 120px;
+}
+
+/* Error states specific to form */
+.task-form .error-message {
+  margin-bottom: 1.5rem;
+}
+
+/* Loading state for submit button */
+.task-form .btn .spinner {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+@media (max-width: 768px) {
+  .task-form-container {
+    margin: 0 -1rem;
+  }
+  
+  .task-form {
+    margin: 0;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-form {
+    padding: 1rem;
+  }
+  
+  .task-form-header h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
