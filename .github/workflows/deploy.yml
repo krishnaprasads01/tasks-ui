@@ -74,6 +74,16 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Enable APIs and Configure Project
+        run: |-
+          gcloud config set project ${{ env.PROJECT_ID }}
+          gcloud services enable artifactregistry.googleapis.com
+          gcloud services enable run.googleapis.com
+          gcloud services enable cloudbuild.googleapis.com
+
       - name: Docker Auth
         id: docker-auth
         uses: 'docker/login-action@v3'
@@ -81,6 +91,15 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCP_SA_KEY }}
           registry: ${{ env.GAR_LOCATION }}-docker.pkg.dev
+
+      - name: Create Artifact Registry Repository
+        run: |-
+          # Create repository if it doesn't exist
+          gcloud artifacts repositories describe ${{ env.SERVICE }} --location=${{ env.GAR_LOCATION }} || \
+          gcloud artifacts repositories create ${{ env.SERVICE }} \
+            --repository-format=docker \
+            --location=${{ env.GAR_LOCATION }} \
+            --description="Docker repository for ${{ env.SERVICE }} application"
 
       - name: Build and Push Container
         run: |-
