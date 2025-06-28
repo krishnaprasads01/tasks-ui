@@ -61,7 +61,7 @@ jobs:
 
       - name: Create production environment file
         run: |
-          echo "VITE_API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api" > .env.production
+          echo "VITE_API_BASE_URL=https://springboot-gcp-api-service-78627022-1005440968570.us-central1.run.app/api" > .env.production
           echo "VITE_APP_ENV=production" >> .env.production
           echo "VITE_DEBUG=false" >> .env.production
 

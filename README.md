@@ -150,7 +150,7 @@ docker run --rm -p 3000:8080 \
 
 # Run the container (production with cloud API)
 docker run --rm -p 3000:8080 \
-  -e API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api \
+  -e API_BASE_URL=https://springboot-gcp-api-service-78627022-1005440968570.us-central1.run.app/api \
   -e PORT=8080 \
   tasks-ui
 ```

@@ -12,7 +12,7 @@ The application is configured to use different API endpoints based on the enviro
 
 ### Production Environment  
 **File**: `.env.production`
-**API Endpoint**: `https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api`
+**API Endpoint**: `https://springboot-gcp-api-service-78627022-1005440968570.us-central1.run.app/api`
 **Usage**: Production deployment on Google Cloud Run
 
 ## 🚀 Running the Application
@@ -37,7 +37,7 @@ npm run preview
 # Or build and run in Docker with production API
 docker build -t tasks-ui .
 docker run -p 3000:8080 \
-  -e API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api \
+  -e API_BASE_URL=https://springboot-gcp-api-service-78627022-1005440968570.us-central1.run.app/api \
   tasks-ui
 ```
 
@@ -51,7 +51,7 @@ docker-compose up
 #### Production (with cloud API)
 ```bash
 docker run -p 3000:8080 \
-  -e API_BASE_URL=https://springboot-gcp-api-service-b02c0d80-1005440968570.us-central1.run.app/api \
+  -e API_BASE_URL=https://springboot-gcp-api-service-78627022-1005440968570.us-central1.run.app/api \
   -e VITE_APP_ENV=production \
   tasks-ui
 ```
