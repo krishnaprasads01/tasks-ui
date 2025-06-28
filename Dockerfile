@@ -13,8 +13,9 @@ RUN npm ci && npm cache clean --force
 # Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Set production environment and build the application
+ENV NODE_ENV=production
+RUN npm run build -- --mode production
 
 # Production stage with nginx
 FROM nginx:alpine
